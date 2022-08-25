@@ -1,0 +1,62 @@
+package com.sk;
+import java.io.File;
+import org.alicebot.ab.*;
+import org.alicebot.ab.utils.*;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ChatBot1Application {
+	
+	private static final boolean TRACE_MODE=false;
+
+	public static void main(String[] args) {
+		SpringApplication.run(ChatBot1Application.class, args);
+		
+		
+		try {
+			String resourcepath=getpath();
+			MagicBooleans.trace_mode=TRACE_MODE;
+			Bot b=new Bot(&quot;super&quot;,resourcepath);
+			Chat chatsession=new Chat(b);
+			String textline=&quot;&quot;;
+			while(true)
+			{
+			System.out.println(&quot;YOU : &quot;);
+
+			textline=IOUtils.readInputTextLine();
+			if(textline==null ||
+
+			textline.length()&lt;1)
+			{
+
+			textline=MagicStrings.null_input;
+
+			}
+			else if(textline.equals(&quot;q&quot;))
+			{
+			System.exit(0);
+			}
+			else if(textline.equals(&quot;wq&quot;))
+			{
+			b.writeQuit();
+			System.exit(0);
+			}
+			else
+			{
+			String request=textline;
+			String
+
+			response=chatsession.multisentenceRespond(request);
+			System.out.println(&quot;BOT
+
+			:&quot;+response);
+
+			}
+			}
+			}
+			catch (Exception e){
+			}
+	}
+
+}
